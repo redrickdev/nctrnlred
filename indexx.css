@@ -1,0 +1,1219 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+:root {
+  --primary-color: #355268;
+  --primary-color-dark: #355268;
+  --secondary-color: #ca8a04;
+  --text-dark: #ffffff;
+  --text-light: #355268;
+  --extra-light: #121212;
+  --max-width: 1600px;
+  
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--extra-light); /* Set your desired background color */
+
+}
+
+nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color:#000000;
+  z-index: 99;
+}
+
+.nav__content {
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .logo a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: 0.3s;
+}
+nav .logo a:hover {
+  color: var(--primary-color-dark);
+}
+
+nav .checkbox {
+  display: none;
+}
+
+nav input {
+  display: none;
+}
+#check {
+  display: none; /* Hide the default checkbox */
+}
+
+.toggle {
+  position: fixed; /* Fixed positioning */
+  top: 30px; /* Move lower on the screen */
+  right: 15px; /* Align to the right side */
+  width: 30px; /* Set a smaller width */
+  height: calc(3px * 3 + 8px * 2); /* Maintain a smaller height */
+  cursor: pointer;
+  display: none; /* Hide by default */
+}
+
+/* Bar styles */
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px; /* Reduced height of the bars */
+  border-radius: calc(3px / 2); /* Rounded corners */
+  background: var(--primary-color); /* Use primary color */
+  opacity: 1;
+  transition: none 0.35s cubic-bezier(.5, -0.35, .35, 1.5) 0s; /* Transition for smoothness */
+}
+
+/***** Spin Animation *****/
+.bar--top {
+  bottom: calc(50% + 8px + 3px / 2); /* Position for the top bar */
+  transition-property: bottom, transform;
+  transition-delay: calc(0s + 0.35s), 0s; /* Delay for the spin effect */
+}
+
+.bar--middle {
+  top: calc(50% - 3px / 2); /* Position for the middle bar */
+  transition-property: opacity; /* Fade effect for middle bar */
+  transition-delay: calc(0s + 0.35s);
+}
+
+.bar--bottom {
+  top: calc(50% + 8px + 3px / 2); /* Position for the bottom bar */
+  transition-property: top, transform; /* Properties for animation */
+  transition-delay: calc(0s + 0.35s), 0s;
+}
+
+/* Animation for the checked state */
+#check:checked + .toggle .bar--top {
+  bottom: calc(50% - 3px / 2); /* Move the top bar */
+  transform: rotate(135deg); /* Rotate effect */
+  transition-delay: 0s, calc(0s + 0.35s);
+}
+
+#check:checked + .toggle .bar--middle {
+  opacity: 0; /* Hide middle bar */
+  transition-duration: 0s; /* No duration for opacity change */
+  transition-delay: calc(0s + 0.35s);
+}
+
+#check:checked + .toggle .bar--bottom {
+  top: calc(50% - 3px / 2); /* Move the bottom bar */
+  transform: rotate(225deg); /* Rotate effect */
+  transition-delay: 0s, calc(0s + 0.35s);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .toggle {
+    display: block; /* Show the toggle button on devices */
+    width: 30px; /* Smaller width for smaller screens */
+    height: calc(3px * 3 + 8px * 2); /* Adjust height for smaller screens */
+  }
+
+  .bar {
+    height: 3px; /* Adjust bar height for smaller screens */
+  }
+}
+
+@media (min-width: 601px) {
+  .toggle {
+    display: none; /* Hide the toggle button on larger screens */
+  }
+}
+
+
+ul {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  transition: left 0.3s;
+}
+
+ul li a {
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--text-dark);
+  transition: 0.3s;
+}
+
+ul li a:hover {
+  border-top-color: var(--secondary-color);
+  border-bottom-color: var(--secondary-color);
+  color: var(--secondary-color);
+}
+.spinner {
+  width: 44px;
+  height: 44px;
+  animation: spinner-y0fdc1 2s infinite ease;
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner > div {
+  background-color: rgba(0,77,255,0.2);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 2px solid #004dff;
+}
+
+.spinner div:nth-of-type(1) {
+  transform: translateZ(-22px) rotateY(180deg);
+}
+
+.spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+}
+
+.spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+}
+
+.spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+}
+
+.spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+}
+
+.spinner div:nth-of-type(6) {
+  transform: translateZ(22px);
+}
+
+@keyframes spinner-y0fdc1 {
+  0% {
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+  50% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+  100% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+}
+
+/* Fullscreen Spinner Wrapper */
+#spinner-wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease; /* Fade-out transition */
+  opacity: 1;
+}
+
+#main-content {
+  opacity: 0;
+  transition: opacity 0.5s ease; /* Fade-in transition */
+  
+}
+
+.section {
+  background-color: var(--extra-light);
+}
+
+.section__container {
+  min-height: 100vh;
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.subtitle {
+  letter-spacing: 2px;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.title {
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 4rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+.font {
+    letter-spacing: 2px;
+    color: var(--text-light);
+    font-weight: 550;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.8rem; /* Adjust font size for tablets */
+    line-height: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem; /* Adjust font size for smaller screens like cellphones */
+    line-height: 2rem;
+  }
+}
+
+.title span {
+    font-weight: 700;
+  }
+  #dynamic-word {
+    color: var(--primary-color);
+    font-size: 3.7rem; /* Default for large screens */
+    font-family: sans-serif;
+    font-weight: 20rem;
+}
+
+/* Adjust for tablets (max-width: 768px) */
+@media (max-width: 768px) {
+    #dynamic-word {
+        font-size: 2rem; /* Adjust font size for tablets */
+    }
+}
+
+/* Adjust for small devices (max-width: 480px) */
+@media (max-width: 480px) {
+    #dynamic-word {
+        font-size: 1.8rem; /* Adjust font size for small devices */
+    }
+}
+
+  
+  .description {
+    line-height: 1.5rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+  }
+  
+
+  .action__btns {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .action__btns button {
+    font-size: 0.9rem; /* Default font size for larger screens */
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 2rem; /* Default padding for larger screens */
+    outline: none;
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  /* Adjustments for mobile view */
+  @media (max-width: 640px) {
+    .action__btns {
+      gap: 1rem; /* Reduce gap slightly for smaller screens */
+      justify-content: center; /* Center align horizontally */
+      flex-wrap: wrap; /* Wrap buttons if they exceed screen width */
+    }
+  
+    .action__btns button {
+      font-size: 0.8rem; /* Slightly smaller font for mobile */
+      letter-spacing: 1px; /* Reduced letter-spacing for readability */
+      padding: 0.5rem 1.5rem; /* Adjust padding for mobile */
+      max-width: 280px; /* Limit width for smaller screens */
+      width: 100%; /* Ensure buttons take full width within max-width */
+      box-sizing: border-box; /* Prevent overflow issues */
+    }
+  }
+  
+.hire__me {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.hire__me:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.portfolio {
+  color: var(--primary-color);
+}
+
+.portfolio:hover {
+  background-color: var(--primary-color-dark);
+  color: #ffffff;
+}
+
+.image {
+  display: grid;
+  place-items: center;
+}
+
+.image img {
+  width: min(25rem, 90%);
+  border-radius: 100%;
+}
+
+@media (width < 750px) {
+  nav .checkbox {
+    display: block;
+  }
+
+  ul {
+    position: absolute;
+    width: 100%;
+    height: calc(100vh - 85px);
+    left: -100%;
+    top: 85px;
+    background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    backdrop-filter: blur(8px); /* Glass effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border-radius: 10px; /* Rounded corners for a softer effect */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for definition */
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  nav #check:checked ~ ul {
+    left: 0;
+  }
+
+  ul li a {
+    font-size: 1.25rem;
+  }
+
+  .section__container {
+    padding: 10rem 1rem 5rem 1rem;
+    text-align: center;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .image {
+    grid-area: 1/1/2/2;
+  }
+
+  .action__btns {
+    margin: auto;
+  }
+}
+#about {
+  text-align: center;
+  min-height: 50vh; /* Set minimum height to cover the full viewport height */
+  padding-top: 100px; /* Padding at the top for spacing */
+  padding-bottom: 50px; /* Additional padding at the bottom */
+  margin: 0; /* Remove default margin */
+  background-color: transparent; /* Keep the existing background color */
+}
+
+.about-header {
+  display: flex;
+  align-items: center; /* Center the content vertically */
+  margin: 20px 0; /* Add some margin to the top and bottom */
+}
+
+.about-header::before,
+.about-header::after {
+  content: "";
+  flex: 1; /* Take up available space */
+  border-top: 2px solid #e4dfdf; /* Top border color */
+  margin: 0 15px; /* Space between the border and content */
+}
+
+/* Additional styles for the header text */
+.about-header h2 {
+  font-size: 2.5rem; /* Font size for the header */
+  font-weight: bold; /* Make the header bold */
+  text-align: center; /* Center the text */
+  color: #ffffff; /* Text color */
+}
+
+.about-container {
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: flex-start; /* Aligns items vertically */
+  padding: 40px; /* Adds padding around the container */
+}
+
+.photo-section {
+  flex: 0 0 30%; /* Allocates 30% width for the photo on desktop view */
+  text-align: right;
+}
+
+/* Desktop (Computer) View Mode */
+.about-content {
+  flex: 0 0 45%; /* Allocates 45% width for content on desktop */
+  text-align: left; /* Aligns text to the left on desktop */
+  color: #ffffff;
+  font-size: 1.2rem; /* Font size */
+  line-height: 1.6; /* Line height for readability */
+  margin: 0 auto; /* Centers the content horizontally */
+  padding: 20px; /* Adds padding inside the content area */
+}
+
+/* Tablet and Small Devices View Mode */
+@media (max-width: 1024px) {
+  .about-content {
+    flex: 0 0 60%; /* Adjust width for tablet */
+    text-align: left; /* Aligns text to the left */
+    font-size: 0.8rem; /* Font size */
+    line-height: 1.6; /* Line height for better readability */
+    margin: 0 auto; /* Centers the content horizontally */
+    padding: 20px; /* Adds padding for space inside the content area */
+  }
+}
+
+/* Phone (Mobile) View Mode */
+@media (max-width: 480px) { /* Targets phone screen sizes */
+  .about-content {
+    flex: 0 0 90%; /* Full width on mobile */
+    text-align: left; /* Aligns text to the left */
+    font-size: 0.8rem; /* Font size */
+    line-height: 1.6; /* Line height for better readability */
+    margin: 0 auto; /* Centers the content horizontally */
+    padding: 20px; /* Adds padding for space inside the content area */
+  }
+}
+
+.profile-pic {
+  width: 250px; /* Adjusts the profile picture size for desktop */
+  border-radius: 1rem;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+      flex-direction: column; /* Stacks photo and content vertically on small screens */
+      align-items: center;
+      padding: 20px;
+  }
+
+  .photo-section, .about-content {
+      width: 100%; /* Ensures full width on small screens */
+      text-align: center; /* Centers text on small screens */
+      margin: 10px 0; /* Adds top and bottom margin for spacing */
+  }
+
+  .profile-pic {
+      width: 150px; /* Adjusts the size for smaller screens */
+      margin-bottom: 20px; /* Adds space below the profile picture */
+  }
+}
+
+/* Style for the Interests section header */
+.interests-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  position: relative;
+  color: #ffffff;
+}
+
+.interests-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #e4dfdf;
+}
+
+/* Style for the Interests section */
+.interests-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  row-gap: 15px; /* Keeps space between rows */
+  column-gap: 15px; /* Keeps space between columns */
+  margin: 30px auto; /* Centers the container horizontally with margin on both sides */
+  padding: 0 20px; /* Adds space inside the container */
+  max-width: 1500px; /* Adjust max-width if needed to fit your design */
+}
+
+.interest-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.interest-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 80px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #f9f9f9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.interest-box:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.interest-pic {
+  width: 50px; 
+  height: 50px;
+  object-fit: cover;
+  margin: 0 15px; /* Adds margin for space on both sides of the image */
+}
+
+.interest-box p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Responsive design for small screens */
+@media (max-width: 600px) {
+  .interests-container {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      row-gap: 10px; /* Keeps space between rows on small screens */
+      column-gap: 10px; /* Keeps space between columns on small screens */
+      padding: 0 15px; /* Adjust padding for smaller screens */
+  }
+
+  .interest-box {
+      height: 60px;
+      padding: 20px;
+  }
+
+  .interest-pic {
+      width: 35px;
+      height: 35px;
+      margin: 0 8px; /* Adjust margin for smaller screens */
+  }
+
+  .interest-box p {
+      font-size: 12px;
+  }
+}
+
+/* Skills Section */
+#skills {
+  padding-top: 70px;
+  margin-bottom: 100px;
+  font-size: 30px;
+  color: #ffffff;
+  min-height: 100vh; /* Set minimum height to cover the full viewport height */
+  padding-bottom: 50px; /* Additional padding at the bottom */
+  margin: 0; /* Remove default margin */
+  background-image: linear-gradient(37deg, rgb(53, 82, 104) 0%, rgb(80, 120, 150) 50%, rgb(53, 82, 104) 100%);
+  background-size: cover; /* Ensure the background covers the entire area */
+  background-repeat: no-repeat; /* Prevent the background from repeating */
+}
+
+.skills-header {
+  margin-top: 20rem;
+}
+
+.skills-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.skills-header::before,
+.skills-header::after {
+  content: "";
+  flex: 1;
+  border-top: 2px solid #e4dfdf;
+  margin: 0 15px;
+}
+
+.skills-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.skills {
+  text-align: center;
+  margin-top: 20rem;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.skills-description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ffffff;
+  margin: 20px 0;
+  padding: 10px;
+  text-align: center;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+/* Media query for larger screens */
+@media (min-width: 1024px) {
+  .skills-description {
+    font-size: 1.2rem;
+    padding: 15px;
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+}
+
+/* Media query for cellphone view */
+@media (max-width: 767px) {
+  #skills {
+    min-height: 120vh; /* Extend the height for small screens */
+  }
+
+  .skills-description {
+    font-size: 0.8rem;
+    padding: 8px;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Skills Icons Section */
+.skills-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.skill-icon {
+  width: 80px; /* Fixed width for icons */
+  height: 80px; /* Fixed height for icons */
+  object-fit: contain;
+  background-color: #e3dfdf; /* Background color */
+  border-radius: 8px;
+  padding: 5px;
+  transition: transform 0.3s, filter 0.3s, background-color 0.3s; /* Smooth transitions */
+  filter: grayscale(100%); /* Make the logo grayscale initially */
+}
+
+.skill-icon:hover {
+  transform: scale(1.2); /* Slight scale-up on hover */
+  background-color: #e3dfdf; /* Background stays the same */
+  filter: grayscale(0%); /* Remove grayscale effect on hover */
+}
+
+/* Media query for small screens */
+@media (max-width: 767px) {
+  .skills-header h2 {
+    font-size: 18px;
+  }
+
+  .skills {
+    margin-top: 10rem;
+    font-size: 0.8rem;
+  }
+
+  .skills-icons {
+    gap: 10px;
+  }
+
+  .skill-icon {
+    width: 80px; /* Adjust size for small screens */
+    height: 80px;
+  }
+}
+
+/* Section styles */
+
+#projects {
+  text-align: center;             /* Center align the text */
+  padding: 40px 20px;            /* Add padding to the section */
+  background-color: var(--extra-light); /* Optional: Set background color */
+  height: 100vh; /* Set the height to cover the full viewport height */
+  margin: 0; /* Remove default margin */
+  background-image: linear-gradient(37deg, rgb(53, 82, 104) 0%, rgb(80, 120, 150) 50%, rgb(53, 82, 104) 100%);
+  background-size: cover; /* Ensure the background covers the entire area */
+  background-repeat: no-repeat; /* Prevent the background from repeating */
+}
+
+#projects-header {
+  display: flex;
+  align-items: center; /* Center the content vertically */
+  margin: 10px 0; /* Margin to add space above and below */
+  padding-top: 60px; /* Space at the top */
+}
+
+#projects-header::before,
+#projects-header::after {
+  content: "";
+  flex: 1; /* This makes the lines on both sides stretch */
+  border-top: 2px solid #e4dfdf; /* Border color matching the provided style */
+  margin: 0 15px; /* Space between the heading and the lines */
+}
+
+#projects h2 {
+  font-size: 2.5rem;             /* Font size for the section title */
+  font-weight: 700;              /* Bold font weight */
+  color: var(--text-dark);       /* Text color */
+  margin-bottom: 20px;           /* Space below the title */
+}
+
+.projects-grid {
+  display: flex;                /* Use flexbox for layout */
+  justify-content: center;      /* Center align the items horizontally */
+  align-items: flex-start;      /* Align items at the start of the container */
+  gap: 40px;                    /* Increased space between cards */
+  flex-wrap: wrap;              /* Allow items to wrap to the next line on smaller screens */
+  margin: 0 auto;               /* Center the grid in the container */
+  padding: 20px;                /* Added padding around the grid */
+}
+
+/* Card design */
+.card {
+  position: relative;
+  width: 350px; /* Set the width for the card */
+  height: 250px; /* Set the height for the card */
+  background-image: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px; /* Padding inside the card for spacing */
+  margin: 50px; /* Added top and bottom margin for space between rows */
+}
+
+/* Heading and paragraph styles */
+.heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.para {
+  text-align: center;
+  color: #ffffff;
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+/* Overlay styles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Button styles */
+.card .card-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight: 600;
+  padding: 10px 20px;
+  font-size: 16px;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  border: none;
+  opacity: 0;
+  scale: 0;
+  transform-origin: 0 0;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card:hover .card-btn {
+  opacity: 1;
+  scale: 1;
+}
+
+.card .card-btn:hover {
+  box-shadow: 0 0 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.card .card-btn:active {
+  scale: 0.95;
+}
+
+/* Overlay effects */
+.overlay::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(-45deg, #f89b2980 0%, #ff0f7b80 100%);
+  transition: transform 0.5s ease;
+}
+
+.card:hover .overlay::after {
+  transform: translate(-50%, -50%) scale(2);
+}
+
+/* Phone styles */
+@media (max-width: 480px) {
+  #projects {
+    height: auto; /* Adjust height for smaller screens */
+    padding: 20px 10px; /* Reduced padding */
+  }
+
+  .projects-grid {
+    gap: 120px; /* Reduced gap for smaller screens */
+  }
+
+  .card {
+    width: 90%; /* Adjust card width to fit screen */
+    height: auto; /* Allow height to be flexible */
+    margin: 20px auto; /* Center cards with auto margins */
+  }
+
+  .heading {
+    font-size: 20px; /* Smaller font size for headings */
+  }
+
+  .para {
+    font-size: 14px; /* Smaller font size for paragraphs */
+  }
+}
+
+  #education {
+    padding-top: 100px; /* Extra space at the top */
+  }
+  .education-description {
+    font-size: 1.1em; /* Default font size */
+    color: #ffffff; /* Text color */
+    margin: 0 auto 1em auto; /* Center the paragraph with auto margins */
+    line-height: 1.6; /* Line height for readability */
+    text-align: center; /* Center the text */
+    max-width: 800px; /* Set a max width to keep it contained */
+    padding: 0 20px; /* Add horizontal padding for small screens */
+    padding-bottom: 100px;
+}
+
+@media (max-width: 600px) {
+    .education-description {
+        font-size: 0.75rem; /* Adjust font size for mobile */
+        padding: 0 10px; /* Reduce horizontal padding on mobile */
+        padding-bottom: 80px;
+        margin-right: 35px;
+        margin-left: 35px;
+    }
+}
+  #education h2 {
+    display: flex;                /* Flexbox for aligning items */
+    align-items: center;          /* Vertically center the text and lines */
+    justify-content: center;      /* Center text horizontally */
+    font-size: 2.5rem;              /* Font size for the header */
+    margin-bottom: 30px;          /* Space below the header */
+    color: #ffffff;               /* Text color */
+    position: relative;           /* Necessary for pseudo-elements */
+}
+
+#education h2::before,
+#education h2::after {
+    content: "";                  /* Creates the pseudo-elements for the lines */
+    flex: 1;                      /* The lines take up available space on each side */
+    border-top: 2px solid #e4dfdf; /* Line color and thickness */
+    margin: 0 15px;               /* Space between the text and the lines */
+}
+  
+.school {
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* Center the items within the flex container */
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;           /* Centers the container itself */
+  margin-bottom: 150px;     /* Space below each school entry */
+  position: relative;
+}
+
+.school img {
+  width: 60px;                 /* Adjust this to make the logo larger */
+  height: 60px;                /* Keeps the logo larger without affecting the circle */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;   /* White circle background */
+  border-radius: 50%;          /* Makes the background circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow */
+  object-fit: contain;         /* Ensures the logo scales well within the circle */
+  padding: 5px;                /* Small padding around the logo */
+}
+
+
+.details {
+  flex: 1;
+  padding: 0 20px;
+  color: #ffffff;
+  text-align: center;      /* Center-align text in details */
+}
+
+.school:nth-child(odd) .details {
+  text-align: left;        /* Left-align odd school entries */
+}
+
+.school:nth-child(even) .details {
+  text-align: right;       /* Right-align even school entries */
+}
+
+.details h3 {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.details p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+@media (max-width: 640px) {
+  #education h2 {
+      font-size: 2.5rem;        /* Reduce font size for smaller screens */
+      margin-bottom: 20px;      /* Adjust spacing below the header */
+  }
+}
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+  .school {
+      flex-direction: column; /* Stack items vertically on small screens */
+      align-items: center;     /* Center items vertically */
+  }
+
+  .details {
+      text-align: center;      /* Center-align text in details for mobile */
+  }
+
+  .school img {
+      position: static;        /* Remove absolute positioning for mobile */
+      transform: none;         /* Reset transformation */
+      margin-bottom: 10px;     /* Add space below the image */
+  }
+}
+
+/* Basic reset for margin and padding */ 
+/* Global resets */
+body, h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Contact section styling */
+#contact {
+  display: flex;
+  flex-direction: column; /* Stack header and container vertically */
+  align-items: center;
+  justify-content: flex-start; /* Ensure content is below the header */
+  padding-top: 100px; /* Padding to give space between header and top */
+  padding-bottom: 100px; /* Adjust bottom padding */
+  min-height: 100vh; /* Ensure the section takes up full viewport height */
+  
+}
+
+/* Contact header styling */
+.contact-header {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 100px; /* Space between the header and the content */
+  text-align: center;
+}
+
+/* Container holding the image and form */
+.contact-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%; /* Adjust the width of the container */
+  max-width: 1200px;
+}
+
+/* Image section styling */
+.image-section {
+  flex: 0 0 40%; /* Fixed width for the image section */
+  margin-right: 20px;
+}
+
+.contact-image {
+  max-width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Form section styling */
+.form-section {
+  flex: 0 0 40%; /* Fixed width for the form section */
+  margin-left: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column; /* Stack form elements vertically */
+}
+
+.contact-form label {
+  margin-bottom: 8px; /* Space below labels */
+}
+
+.contact-form input,
+.contact-form textarea {
+  margin-bottom: 16px; /* Space below input fields */
+  padding: 14px; /* Inner padding for input fields */
+  border: 1px solid #ccc; /* Border for input fields */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Textarea specific styling */
+.contact-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.contact-form button {
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  #contact {
+    padding: 90px; /* Less padding on mobile */
+  }
+
+  .contact-container {
+    flex-direction: column; /* Stack image and form vertically */
+    align-items: center;
+    width: 100%;
+  }
+
+  .image-section {
+    margin-bottom: 20px; /* Space below image */
+  }
+
+  .form-section {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+/* Footer styling */
+.site-footer {
+    background-color: #333333;  /* Dark background color */
+    padding: 10px 0;  /* Padding for top and bottom spacing */
+    text-align: center;  /* Center align text */
+    color: #ffffff;  /* White text color for readability */
+    font-size: 16px;  /* Set font size */
+    position: relative;
+    bottom: 0;
+    width: 100%; /* Full width for footer */
+}
+
+/* Footer text styling */
+.site-footer p {
+    margin: 0;  /* Remove default margin */
+    line-height: 1.5;  /* Adjust line height for better readability */
+    font-family: 'Arial', sans-serif;  /* Professional font */
+}
+
+/* Add a hover effect for footer text */
+.site-footer p:hover {
+    color: #bbbbbb;  /* Lighten the text color on hover */
+}
+
+/* Add responsive padding for smaller screens */
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 15px 0;  /* Adjust padding for mobile */
+    }
+
+    /* Adjust font size for better readability on smaller screens */
+    .site-footer p {
+        font-size: 14px; /* Slightly smaller font size for mobile */
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    .site-footer {
+        padding: 10px 0; /* Further adjust padding for very small screens */
+    }
+
+    .site-footer p {
+        font-size: 12px; /* Smaller font size for better fit on small devices */
+    }
+}
+

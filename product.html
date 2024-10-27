@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Gallery</title>
+    <link rel="stylesheet" href="portfolio.css">
+    <style>
+        /* Reset and global styling */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background-color: #f4f4f9; color: #333; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Header styling */
+        header { width: 100%; background-color: #121212; color: #fff; padding: 1.5rem 0; text-align: center; margin-bottom: 2rem; }
+        header h1 { font-size: 2rem; font-weight: 700; }
+        
+        /* Gallery styling */
+        .gallery { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 100%; padding: 0; margin: 0; }
+        .gallery-item { position: relative; overflow: hidden; transition: transform 0.3s ease; flex: 1 1 calc(33.33% - 1rem); margin: 0.5rem; height: 200px; }
+        .gallery-item img { display: block; width: 100%; height: 100%; object-fit: cover; border-bottom: 2px solid #ddd; }
+        .gallery-item:hover { transform: translateY(-5px); }
+        
+        /* Download button styling */
+        .download-btn { display: flex; align-items: center; justify-content: center; padding: 0.75rem; background-color: #355268; color: #fff; text-decoration: none; font-weight: 600; border-radius: 0 0 8px 8px; transition: background-color 0.3s ease; min-width: 100%; }
+        .download-btn:hover { background-color: #002f5f; }
+        
+        /* Modal styling */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; padding: 20px; }
+        .modal img { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+        .close { position: absolute; top: 20px; right: 30px; color: white; font-size: 2rem; font-weight: bold; cursor: pointer; transition: color 0.3s ease; }
+        .close:hover { color: #ff0000; }
+    </style>
+</head>
+<body>
+    <div id="spinner-wrapper">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <header>
+        <h1>Graphic Design Gallery</h1>
+    </header>
+
+    <section class="gallery" id="gallery"></section>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Modal Image">
+    </div>
+    
+    <script>
+        // List of image URLs - Replace with your actual image URLs
+        const images = [
+            "images/image1.jpg",
+            "images/image2.jpg",
+            "images/image3.jpg",
+            // Add more image URLs here
+        ];
+
+        // Function to create gallery items dynamically
+        function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            images.forEach((src) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+                
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Design Image';
+                img.classList.add('gallery-img');
+                img.onclick = () => openModal(src);
+                
+                const downloadBtn = document.createElement('a');
+                downloadBtn.href = src; // Use direct URL to image for download
+                downloadBtn.download = src.split('/').pop(); // Set filename for download
+                downloadBtn.classList.add('download-btn');
+                downloadBtn.textContent = 'Download in HD';
+                
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(downloadBtn);
+                gallery.appendChild(galleryItem);
+            });
+        }
+
+        // Modal functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById("myModal");
+            const modalImage = document.getElementById("modalImage");
+            modal.style.display = "flex";
+            modalImage.src = imageSrc;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("myModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Load gallery on page load
+        window.onload = function () {
+            loadGallery();
+            setTimeout(function () {
+                document.getElementById("spinner-wrapper").style.opacity = "0";
+                setTimeout(function () {
+                    document.getElementById("spinner-wrapper").style.display = "none";
+                }, 500);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
